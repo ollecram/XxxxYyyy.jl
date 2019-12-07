@@ -28,6 +28,7 @@ Define a stable path for a folder to hold all julia packages in development.
 - `julia> ]`
 - `(1.3) pkg> activate XxxxYyyy/prjenv`
 - `(prjenv) pkg> develop XxxxYyyy`
+- `(prjenv) pkg> status`
 - `(prjenv) pkg> status --manifest`
 
 ### Running tests
