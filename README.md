@@ -1,37 +1,50 @@
-## Welcome to GitHub Pages
+# XxxxYyyy.jl
+Template Julia Package 
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://ollecram.github.io/VlpRng.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://ollecram.github.io/VlpRng.jl/dev)
 
-You can use the [editor on GitHub](https://github.com/ollecram/XxxxYyyy.jl/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Developers Strategy Memo
 
-### Markdown
+### JULIA_PKG_DEVDIR
+Define a stable path for a folder to hold all julia packages in development. 
+- Set the variable `JULIA_PKG_DEVDIR` in `.bashrc`
+- Create all local clones of Git repositories under `$JULIA_PKG_DEVDIR`
+- Suggested choice: `~/devwork/repos/git`
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Keep a dedicated environment within the GitHub repo of each Julia package
+- Package name: `XxxxYyyy` &ndash; GitHub repo name: `XxxxYyyy.jl`
+- Folder `XxxxYyyy.jl`  **must be renamed**  `XxxxYyyy`  IMMEDIATELY AFTER a clone command
+- Folder `XxxxYyyy/prjenv` holds the environment (NOT to be declared in `.gitignore`)
 
-```markdown
-Syntax highlighted code block
+### Use native Git commands to manage cloning, commit, push, etc...
+- `$ cd JULIA_PKG_DEVDIR`
+- `$ git clone git@github.com:ollecram/XxxxYyyy.jl.git`
+- `$ mv XxxxYyyy.jl  XxxxYyyy`
 
-# Header 1
-## Header 2
-### Header 3
+### Refer to cloned packages by their local path (vs the GitHub repository path)
+- `$ cd JULIA_PKG_DEVDIR`
+- `$ julia`
+- `julia> ]`
+- `(1.3) pkg> activate XxxxYyyy/prjenv`
+- `(prjenv) pkg> develop XxxxYyyy`
+- `(prjenv) pkg> status --manifest`
 
-- Bulleted
-- List
+### Running tests
+In order to have coverage measured as part of the test the julia REPL should be started with the following options        
 
-1. Numbered
-2. List
+`--code-coverage=tracefile-%p.info --code-coverage=user`
 
-**Bold** and _Italic_ and `Code` text
+In summary, the following commands illustrate a typical development session 
+- `cd $JULIA_PKG_DEVDIR`
+- `julia --code-coverage=tracefile-%p.info --code-coverage=user`
+- ]
+- `(1.3) pkg> test --coverage XxxxYyyy`
+- Exit from the Pkg session and terminate the REPL in order to manually build the documentation
+- `cd XxxxYyyy/docs`
+- `julia --color=yes make.jl`
 
-[Link](url) and ![Image](src)
-```
+### Automated build and publishing of the documentation
+The file `build-and-deploy-docs.yml` under `.github/workflows/` defines the job to be triggered by `push` on the GitHub repo.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ollecram/XxxxYyyy.jl/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+The generated docs can be found at XxxxYyyy/docs/build.
