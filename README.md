@@ -1,7 +1,7 @@
 # XxxxYyyy.jl
 Template Julia Package 
-[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://ollecram.github.io/VlpRng.jl/stable)
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://ollecram.github.io/VlpRng.jl/dev)
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://ollecram.github.io/XxxxYyyy.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://ollecram.github.io/XxxxYyyy.jl/dev)
 
 
 ## Developers Strategy Memo
