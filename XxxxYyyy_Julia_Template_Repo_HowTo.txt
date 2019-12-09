@@ -1,0 +1,394 @@
+## THIS IS A MEMO on HOW this TEMPLATE WAS CREATED
+## See README.md to use this TEMPLATE TO CREATE A
+##     PROJECT for DEVELOPING a new JULIA PACKAGE 
+
+0. Define JULIA_PKG_DEVDIR environment variable (local)
+
+	a. set JULIA_PKG_DEVDIR in .bashrc (~/devwork/repos/git)
+
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+A. $$$$$$$$$$$$$$$$$$$$$$$$$$$$  C R E A T E   T H E   B A S I C  S T R U C T U R E  $$$$$$$$$$$$$$$$$$$$$$$$$$$$
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+1. Create public GitHub repo XxxxYyyy.jl
+
+	a. mark it as a Template repository
+	b. set Julia .gitignore
+	c. select option to create a README file
+
+2. Clone the new repo and generate the Project.toml inside it  
+
+	// CLONE
+
+	a. $ cd $JULIA_PKG_DEVDIR
+	b. $ git clone git@github.com:ollecram/XxxxYyyy.jl.git
+	c. $ mv XxxxYyyy.jl XxxxYyyy
+
+	// PKG GENERATE (creates XxxxYyyy/XxxxYyyy/Project.toml) 
+	a. $ julia
+	b. julia> cd("XxxxYyyy")
+	c. julia> ]
+	d. (1.3) pkg> generate XxxxYyyy
+			Generating project XxxxYyyy:
+			    XxxxYyyy/Project.toml
+			    XxxxYyyy/src/XxxxYyyy.jl
+	e. (1.3) pkg> BackSpace
+	f. julia> Ctrl+d
+
+	// PKG RE-ORGANIZATION
+	a. $ cd $JULIA_PKG_DEVDIR
+	b. $ cd XxxxYyyy
+	c. $ cp XxxxYyyy/Project.toml . 
+	d. $ rm -rf XxxxYyyy
+	e. $ cat Project.toml
+			name = "XxxxYyyy"
+			uuid = "f053856a-ba08-4650-953a-b054d77fde02"
+			authors = ["Marcello Vitaletti <marcello.vitaletti@gmail.com>"]
+			version = "0.1.0"
+	f. $ cd ..
+
+
+3. Create a dedicated Julia environment to be kept inside the project itself  
+	a. $ cd $JULIA_PKG_DEVDIR
+	b. $ mkdir XxxxYyyy/src
+	c. $ touch XxxxYyyy/src/XxxxYyyy.jl
+	d. $ julia
+	e. julia> ]
+	f. (1.3) pkg> activate XxxxYyyy/prjenv
+			Activating new environment at `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
+	g. (prjenv) pkg> develop XxxxYyyy
+			[ Info: resolving package identifier `XxxxYyyy` as a directory at `/work3/marcello/repos/git/XxxxYyyy`.
+			 Resolving package versions...
+			  Updating `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
+			  [f053856a] + XxxxYyyy v0.1.0 [`..`]
+			  Updating `/work3/marcello/repos/git/XxxxYyyy/prjenv/Manifest.toml`
+			  [f053856a] + XxxxYyyy v0.1.0 [`..`]
+
+	h. (prjenv) pkg> add Documenter
+	i. (prjenv) pkg> add DocumenterTools
+	l. (prjenv) pkg> status --manifest
+			    Status `/work3/marcello/repos/git/XxxxYyyy/prjenv/Manifest.toml`
+			  [b99e7846] BinaryProvider v0.5.8
+			  [ffbed154] DocStringExtensions v0.8.1
+			  [e30172f5] Documenter v0.24.2
+			  [35a29f4d] DocumenterTools v0.1.3
+			  [682c06a0] JSON v0.21.0
+			  [69de0a69] Parsers v0.3.10
+			  [322a6be2] Sass v0.1.0
+			  [f053856a] XxxxYyyy v0.1.0 [`..`]
+			  [2a0f44e3] Base64 
+			  [ade2ca70] Dates 
+			  [8ba89e20] Distributed 
+			  [7b1f6079] FileWatching 
+			  [b77e0a4c] InteractiveUtils 
+			  [76f85450] LibGit2 
+			  [8f399da3] Libdl 
+			  [56ddb016] Logging 
+			  [d6f4376e] Markdown 
+			  [a63ad114] Mmap 
+			  [44cfe95a] Pkg 
+			  [de0858da] Printf 
+			  [3fa0cd96] REPL 
+			  [9a3f8284] Random 
+			  [ea8e919c] SHA 
+			  [9e88b42a] Serialization 
+			  [6462fe0b] Sockets 
+			  [8dfed614] Test 
+			  [cf7118a7] UUIDs 
+			  [4ec0a83e] Unicode 
+
+	m. (prjenv) pkg> BackSpace
+	n. julia> Ctrl+d
+	o. $ tree XxxxYyyy
+				XxxxYyyy
+				├── LICENSE
+				├── prjenv
+				│   ├── Manifest.toml
+				│   └── Project.toml
+				├── Project.toml
+				├── README.md
+				└── src
+				    └── XxxxYyyy.jl
+
+4. Commit what was made so far 
+	a. $ cd $JULIA_PKG_DEVDIR/XxxxYyyy
+	b. $ git status
+	c. $ git add *
+	d. $ git commit -m "project structure building...1"
+	e. $ git push
+
+5. Tag the repository level at @0.0.1  "project structure building...1" using the GitHub releases UI
+
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+B. $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$    C R E A T E   M O R E    S T R U C T U R E    $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+1.	// CLONE AND ACTIVATE PROJECT-DEDICATED JULIA ENVIRONMENT 
+
+	a. $ cd $JULIA_PKG_DEVDIR
+	b. $ git clone git@github.com:ollecram/XxxxYyyy.jl.git
+	c. $ mv XxxxYyyy.jl XxxxYyyy
+
+	d. $ julia
+	e. julia> ]
+	f. (1.3) pkg> activate XxxxYyyy/prjenv
+			Activating new environment at `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
+	g. (prjenv) pkg> develop XxxxYyyy
+	h. (prjenv) pkg> status
+			   Status `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
+			  [e30172f5] Documenter v0.24.2
+			  [35a29f4d] DocumenterTools v0.1.3
+			  [f053856a] XxxxYyyy v0.1.0 [`..`]
+
+
+2.	// Use PkgTemplates@0.6.3 to create project structure under ~/devwork/tmp
+
+	a. (prjenv) pkg> add PkgTemplates@0.6.3
+	b. BackSpace
+	c. julia> using PkgTemplates
+	d. julia> t = Template(;
+			   user="ollecram",
+			   license="MIT",
+			   authors=["Marcello Vitaletti"],
+			   dir="~/devwork/tmp",
+			   julia_version=v"1.3",
+			   ssh=true,
+			   dev=false,
+			   manifest=false,
+			   plugins=[Codecov(), GitHubPages()],
+		       )
+
+					Template:
+					  → User: ollecram
+					  → Host: github.com
+					  → License: MIT (Marcello Vitaletti 2019)
+					  → Package directory: ~/devwork/tmp
+					  → Minimum Julia version: v1.3
+					  → SSH remote: Yes
+					  → Add packages to main environment: No
+					  → Commit Manifest.toml: No
+					  → Plugins:
+					    • Codecov:
+					      → Config file: None
+					      → 3 gitignore entries: "*.jl.cov", "*.jl.*.cov", "*.jl.mem"
+					    • GitHubPages:
+					      → 0 asset files
+					      → 2 gitignore entries: "/docs/build/", "/docs/site/"
+
+	l. julia> generate(t, "XxxxYyyy")
+				See output in XxxxYyyy_Julia_Template_Repo_PkgTemplates_LOG.html
+
+	
+3.	// MERGE content from ~/devwork/tmp/XxxxYyyy into $JULIA_PKG_DEVDIR/XxxxYyyy
+
+		Select and COPY ALL folders  (docs/, src/ and test/) 
+			from 	~/devwork/tmp/XxxxYyyy 
+			into	$JULIA_PKG_DEVDIR/XxxxYyyy 
+			>>>> REPLACING the (empty) file src/XxxxYyyy.jl
+		
+		Merge ~/devwork/tmp/XxxxYyyy/Project.toml into $JULIA_PKG_DEVDIR/XxxxYyyy/Project.toml 
+
+	a. cp -r ~/devwork/tmp/XxxxYyyy/docs $JULIA_PKG_DEVDIR/XxxxYyyy
+	b. cp -r ~/devwork/tmp/XxxxYyyy/src $JULIA_PKG_DEVDIR/XxxxYyyy
+	c. cp -r ~/devwork/tmp/XxxxYyyy/test $JULIA_PKG_DEVDIR/XxxxYyyy
+	
+	*. nofSourceLines=$(sed -n '$=' ~/devwork/tmp/XxxxYyyy/Project.toml)
+	*. nofTargetLines=$(sed -n '$=' $JULIA_PKG_DEVDIR/XxxxYyyy/Project.toml)
+	*. startSourceLine=$((nofTargetLines + 1))
+	d. sed -n '5, 13p' ~/devwork/tmp/XxxxYyyy/Project.toml >> $JULIA_PKG_DEVDIR/XxxxYyyy/Project.toml
+
+	// COMMIT and PUSH all the above changes to remote
+
+	e. $ git add *
+	f. $ git commit -m "project structure building...2"
+	g. $ git push
+
+
+4. Tag the repository level at @0.0.2  "project structure building...2" using the GitHub releases UI
+
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+C. $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   C R E A T E   THE  F U L L   S T R U C T U R E  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+1.	// APPLY the following manual changes
+
+	a. edit docs/make.jl to add deploydocs()
+	b. edit prjenv/Project.toml to drop PkgTemplates from [extras]
+	c. add Project.toml file inside the test/ folder to declare test dependencies
+	d. edit src/XxxxYyyy.jl to make it more significant
+	e. edit test/XxxxYyyy.jl to make it more significant 
+
+2.      // Test the above changes 	
+
+	a. $ cd $JULIA_PKG_DEVDIR
+	b. $ julia
+	c. julia> ]
+	d. (v1.3) pkg> activate XxxxYyyy/prjenv
+			Activating environment at `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
+
+	e. (prjenv) pkg> test XxxxYyyy
+			   Testing XxxxYyyy
+			 Resolving package versions...
+			  Updating `/tmp/jl_YWNxs9/Project.toml`
+			  [f053856a] + XxxxYyyy v0.1.0 [`/work3/marcello/repos/git/XxxxYyyy/`]
+			  Updating `/tmp/jl_YWNxs9/Manifest.toml`
+			 [no changes]
+			[ Info: Running Sandbox
+			    Status `/tmp/jl_YWNxs9/Project.toml`
+			  [e30172f5] Documenter v0.24.2
+			  [f053856a] XxxxYyyy v0.1.0 [`/work3/marcello/repos/git/XxxxYyyy/`]
+			  [8dfed614] Test 
+			[ Info: SetupBuildDirectory: setting up build directory.
+			[ Info: Doctest: running doctests.
+			[ Info: Skipped ExpandTemplates step (doctest only).
+			[ Info: Skipped CrossReferences step (doctest only).
+			[ Info: Skipped CheckDocument step (doctest only).
+			[ Info: Skipped Populate step (doctest only).
+			[ Info: Skipped RenderDocument step (doctest only).
+			Test Summary: | Pass  Total
+			XxxxYyyy.jl   |    3      3
+			   Testing XxxxYyyy tests passed
+
+	f. BackSpace
+
+3.      // Test building the documentation 	
+
+	a. $ cd $JULIA_PKG_DEVDIR/XxxxYyyy/docs
+	b. $ cd XxxxYyyy/docs
+	c. $ julia --color=yes make.jl
+			[ Info: SetupBuildDirectory: setting up build directory.
+			[ Info: Doctest: running doctests.
+			[ Info: ExpandTemplates: expanding markdown templates.
+			[ Info: CrossReferences: building cross-references.
+			[ Info: CheckDocument: running document checks.
+			[ Info: Populate: populating indices.
+			[ Info: RenderDocument: rendering document.
+			[ Info: HTMLWriter: rendering HTML pages.
+			┌ Warning: Documenter could not auto-detect the building environment Skipping deployment.
+			└ @ Documenter ~/.julia/packages/Documenter/DQ9ei/src/deployconfig.jl:41
+	d. Open the browser at XxxxYyyy/docs/build/index.html
+
+	// COMMIT and PUSH all the above changes to remote
+
+	e. $ cd $JULIA_PKG_DEVDIR/XxxxYyyy
+	f. $ git add *
+	g. $ git commit -m "project structure building...3"
+	h. $ git push
+
+
+4. Tag the repository level at @0.0.3  "project structure building...3" using the GitHub releases UI
+
+
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+D. $$$$$$$$$$$$$$$$$   E N A B L E   G I T H U B   A C T I O N S   W O R K F L O W    $$$$$$$$$$$$$$$$$$$$$$$$$$$
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+1. Generate Private/Public Key pair for use with GitHub Actions
+	[Follow instructions at https://juliadocs.github.io/Documenter.jl/stable/man/hosting/walkthrough/index.html]
+
+	a. $ ssh-keygen -N "" -f privatekey
+			Generating public/private rsa key pair.
+			Your identification has been saved in privatekey.
+			Your public key has been saved in privatekey.pub.
+			The key fingerprint is:
+			SHA256:bb6j/Or2ylWd5LHMhoxCI9OKjWj0Xlc0F8e0fo99STI marcello@tower
+			The key's randomart image is:
+			+---[RSA 3072]----+
+			|          o o+o  |
+			|       . . o ... |
+			|  .   o + .   +  |
+			| . o + = + o O + |
+			|  o + + S + +EX..|
+			| . . . . + . .++o|
+			|    .     o   ..+|
+			|       o....    .|
+			|       oB*+.     |
+			+----[SHA256]-----+
+
+	b. $ julia
+	c. julia> using Base64
+	d. julia> read("privatekey", String) |> base64encode |>  println
+	e. Copy the terminal output (Base64 encoded private key)
+
+2. Add the Base64 encoded private key to a new secret named 'DOCUMENTER_KEY'
+	a. Open GitHub XxxxYyyy.jl project Settings / Secrets
+	b. Type DOCUMENTER_KEY as the name of the secret
+	c. Paste data copied above at step 4.e
+	d. Push Add secret
+
+3. Add the public key (of the generated pair) as a deploy key 
+	a. Open GitHub XxxxYyyy.jl project Settings / Deploy Keys
+	b. Type 'Julia Documenter Deploy Key (pub of DOCUMENTER_KEY secret)' for the Title
+	c. Paste in the Key field the content of file privatekey.pub created at step 1.a
+	d. Leave the 'Allow write access' option UNCHECKED
+	e. Push Add key
+
+
+4. Define workflow for building and publishing documentation of Julia modules
+	[Follow instructions at https://juliadocs.github.io/Documenter.jl/stable/man/hosting/#GitHub-Actions-1]
+
+	a. create github actions script 'build-and-deploy-docs.yml' under XxxxYyyy/.github/workflows
+	b. Open GitHub XxxxYyyy.jl project Settings / Actions
+	c. Action permissions / Select 'Enable local and Third Party actions for this repository'
+
+5. Save this file in the repository root, then commit and push all changes
+
+	a. Save this file in the repository root
+
+	// COMMIT and PUSH all the above changes to remote
+
+	b. $ cd $JULIA_PKG_DEVDIR/XxxxYyyy
+	c. $ git add *
+	d. $ git commit -m "project structure building...4"
+	e. $ git push
+
+
+
+6. Tag the repository level at @0.0.4  "project structure building...4" using the GitHub releases UI
+
+-----------------------------------------------------------------------------------------------------------------
+
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+E. $$$$$$$$$$$$$$$$$$   E N A B L E   G I T H U B   S E L F - H O S T E D   R U N N E R   $$$$$$$$$$$$$$$$$$$$$$$
+   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+   N O T E  (1) :  Running a self-hosted runner for a public repository exposes the runner host to high risks	
+   N O T E  (2) :  Each runner installation must be configured with a TOKEN that ties the runner to a repository.
+			A strategy for using a single runner installation to be (re)configured on-demand with the 
+			token associated to a specific repository is still to be found. 
+
+1. Create a folder where to install a Self-hosted GitHub actions runner
+
+	a. set GITHUB_RUNNER_DIR in .bashrc (~/devwork/runners/actions_runner)
+
+6. Enable self-hosted runner in the github XxxxYyyy.jl repository
+	Note that GitHub actions runners can only be only defined on a per-repository base
+	Github ie expected to provide self-hosted runners at the account/organization basis in the future 
+
+	a. Self-hosted runners / Push 'Add runner' and follow instructions to install and operate the runner, namely
+		- mkdir actions-runner && cd actions-runner
+		- curl -O https://githubassets.azureedge.net/runners/2.162.0/actions-runner-linux-x64-2.162.0.tar.gz
+		- tar xzf ./actions-runner-linux-x64-2.162.0.tar.gz
+		- ./config.sh --url https://github.com/ollecram/XxxxYyyy.jl --token <THE_TOKEN_FOUND_IN_THE_INSTRUCTIONS>
+		- ./run.sh
+
+	b. Alternatively, one can install and operate the runner as a service
+	
+		$ sudo ./svc.sh --help
+
+				Usage:
+				./svc.sh [install, start, stop, status, uninstall]
+				Commands:
+				   install [user]: Install runner service as Root or specified user.
+				   start: Manually start the runner service.
+				   stop: Manually stop the runner service.
+				   status: Display status of runner service.
+				   uninstall: Uninstall runner service.	
+	
+		
+
+
+
