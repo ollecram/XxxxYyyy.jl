@@ -3,6 +3,9 @@
 ```@index
 ```
 
+```@contents
+```
+
 ```@autodocs
 Modules = [XxxxYyyy]
 ```
