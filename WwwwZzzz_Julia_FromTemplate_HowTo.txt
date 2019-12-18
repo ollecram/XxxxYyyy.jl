@@ -46,8 +46,6 @@
 	
 	find ./ -path ./.git -prune -o -type f  -exec sed -i -e 's/f053856a-ba08-4650-953a-b054d77fde02/<newUUID>/g' {} \;
 
-	find ./ -path ./.git -prune -o -type f  -exec sed -i -e 's/f053856a-ba08-4650-953a-b054d77fde02/2173b9ca-d59e-44f7-aab5-0bf2d3122768/g' {} \;
-
 5. Test that everything works 
 	a. $ cd $JULIA_PKG_DEVDIR	   !!!!!!!   D O   I T   !!!!!!!
 	b. $ julia
