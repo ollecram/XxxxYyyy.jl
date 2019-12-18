@@ -1,0 +1,123 @@
+## THIS ARE INSTRUCTIONS FOR for DEVELOPING a new JULIA PACKAGE in a
+##     new GitHub project created from the XxxxYyyy.jl TEMPLATE
+##     
+## The following actions assume that YOU have created in GitHub 
+##     the WwwwZzzz.jl repo from the XxxxYyyy.jl TEMPLATE
+
+
+
+0. Define JULIA_PKG_DEVDIR environment variables (local)
+
+	a. set JULIA_PKG_DEVDIR		in .bashrc (~/devwork/repos/git)
+
+1. Clone the new repo and generate the Project.toml inside it  
+
+	// CLONE and rename the repo's top folder (throw the '.jl' away)
+
+	a. $ cd $JULIA_PKG_DEVDIR
+	b. $ git clone git@github.com:ollecram/WwwwZzzz.jl.git
+	c. $ mv WwwwZzzz.jl WwwwZzzz
+
+2. Replace the template's XxxxYyyy into WwwwZzzz within all files (but those inside .git !!)
+	a. make a backup of this very file before executing the following command
+	b. $ cd $JULIA_PKG_DEVDIR/WwwwZzzz   !!!!!!!   D O   I T   !!!!!!!
+	c. $ find ./ -path ./.git -prune -o -type f -exec sed -i -e 's/XxxxYyyy/WwwwZzzz/g' {} \;
+	d. $ mv src/XxxxYyyy.jl src/WwwwZzzz.jl
+	e. restore this very file from backup (or manually restore the XxxxYyyy's)
+ 
+
+3. Generate a new uuid for this project
+
+	$ cd /tmp
+	$ julia
+	julia> ]
+	(1.3) pkg> generate WwwwZzzz
+	Backspace			[exit Pkg]
+	Ctrl+D				[exit Julia REPL]
+
+
+4. Replace the template's uuid with the new one within all files (but those inside .git !!)
+
+	- $ cat /tmp/WwwwZzzz/Project.toml
+	- Copy the NEW UUID to the Clipboard and past it in the 'find/sed' command below
+	
+	- $ cd $JULIA_PKG_DEVDIR/WwwwZzzz   !!!!!!!   D O   I T   !!!!!!!
+	- Execute the following command (after insertion of <newUUID>)
+	
+	find ./ -path ./.git -prune -o -type f  -exec sed -i -e 's/f053856a-ba08-4650-953a-b054d77fde02/<newUUID>/g' {} \;
+
+	find ./ -path ./.git -prune -o -type f  -exec sed -i -e 's/f053856a-ba08-4650-953a-b054d77fde02/2173b9ca-d59e-44f7-aab5-0bf2d3122768/g' {} \;
+
+5. Test that everything works 
+	a. $ cd $JULIA_PKG_DEVDIR	   !!!!!!!   D O   I T   !!!!!!!
+	b. $ julia
+	c. julia> ]
+	d. (v1.3) pkg> activate WwwwZzzz/prjenv
+	e. (v1.3) pkg> develop WwwwZzzz
+									[ Info: resolving package identifier `WwwwZzzz` as a directory at `/work3/marcello/repos/git/WwwwZzzz`.
+									Resolving package versions...
+									Updating `/work3/marcello/repos/git/WwwwZzzz/prjenv/Project.toml`
+									[e30172f5] + Documenter v0.24.2
+									[35a29f4d] + DocumenterTools v0.1.3
+									[2173b9ca] + WwwwZzzz v0.1.0 [`..`]
+									Updating `/work3/marcello/repos/git/WwwwZzzz/prjenv/Manifest.toml`
+									[b99e7846] + BinaryProvider v0.5.8
+									[ffbed154] + DocStringExtensions v0.8.1
+									[e30172f5] + Documenter v0.24.2
+									[35a29f4d] + DocumenterTools v0.1.3
+									[682c06a0] + JSON v0.21.0
+									[69de0a69] + Parsers v0.3.10
+									[322a6be2] + Sass v0.1.0
+									[2173b9ca] + WwwwZzzz v0.1.0 [`..`]
+									[2a0f44e3] + Base64 
+									[ade2ca70] + Dates 
+									[8ba89e20] + Distributed 
+									[7b1f6079] + FileWatching 
+									[b77e0a4c] + InteractiveUtils 
+									[76f85450] + LibGit2 
+									[8f399da3] + Libdl 
+									[56ddb016] + Logging 
+									[d6f4376e] + Markdown 
+									[a63ad114] + Mmap 
+									[44cfe95a] + Pkg 
+									[de0858da] + Printf 
+									[3fa0cd96] + REPL 
+									[9a3f8284] + Random 
+									[ea8e919c] + SHA 
+									[9e88b42a] + Serialization 
+									[6462fe0b] + Sockets 
+									[8dfed614] + Test 
+									[cf7118a7] + UUIDs 
+									[4ec0a83e] + Unicode 
+
+	f. (v1.3) pkg> status
+									Status `/work3/marcello/repos/git/WwwwZzzz/prjenv/Project.toml`
+									[e30172f5] Documenter v0.24.2
+									[35a29f4d] DocumenterTools v0.1.3
+									[2173b9ca] WwwwZzzz v0.1.0 [`..`]
+
+	g. (prjenv) pkg> test WwwwZzzz
+									Testing WwwwZzzz
+									Resolving package versions...
+									Updating `/tmp/jl_6AurZ2/Project.toml`
+									[2173b9ca] + WwwwZzzz v0.1.0 [`/work3/marcello/repos/git/WwwwZzzz/`]
+									Updating `/tmp/jl_6AurZ2/Manifest.toml`
+									[no changes]
+									[ Info: Running Sandbox
+										Status `/tmp/jl_6AurZ2/Project.toml`
+									[e30172f5] Documenter v0.24.2
+									[2173b9ca] WwwwZzzz v0.1.0 [`/work3/marcello/repos/git/WwwwZzzz/`]
+									[8dfed614] Test 
+									[ Info: SetupBuildDirectory: setting up build directory.
+									[ Info: Doctest: running doctests.
+									[ Info: Skipped ExpandTemplates step (doctest only).
+									[ Info: Skipped CrossReferences step (doctest only).
+									[ Info: Skipped CheckDocument step (doctest only).
+									[ Info: Skipped Populate step (doctest only).
+									[ Info: Skipped RenderDocument step (doctest only).
+									Test Summary: | Pass  Total
+									WwwwZzzz.jl   |    3      3
+									Testing WwwwZzzz tests passed 
+
+6. Follow steps documented at the end of XxxxYyyy.jl/XxxxYyyy_Julia_Template_Repo_HowTo.txt
+	        to enable GitHub actions and a self-hosted runner for the new repo. 
