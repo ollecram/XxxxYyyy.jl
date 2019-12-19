@@ -2,6 +2,11 @@
 ## See README.md to use this TEMPLATE TO CREATE A
 ##     PROJECT for DEVELOPING a new JULIA PACKAGE 
 
+>>>> VERSION 0.1.1 
+>>>> AMENDED VERSION 0.1.0 by eliminating the use of a redundant
+>>>>                       Project.toml inside XxxxYyyy/prjenv 
+
+
 0. Define JULIA_PKG_DEVDIR environment variables (local)
 
 	a. set JULIA_PKG_DEVDIR		in .bashrc (~/devwork/repos/git)
@@ -54,20 +59,12 @@ A. $$$$$$$$$$$$$$$$$$$$$$$$$$$$  C R E A T E   T H E   B A S I C  S T R U C T U 
 	c. $ touch XxxxYyyy/src/XxxxYyyy.jl
 	d. $ julia
 	e. julia> ]
-	f. (1.3) pkg> activate XxxxYyyy/prjenv
-			Activating new environment at `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
-	g. (prjenv) pkg> develop XxxxYyyy
-			[ Info: resolving package identifier `XxxxYyyy` as a directory at `/work3/marcello/repos/git/XxxxYyyy`.
-			 Resolving package versions...
-			  Updating `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
-			  [f053856a] + XxxxYyyy v0.1.0 [`..`]
-			  Updating `/work3/marcello/repos/git/XxxxYyyy/prjenv/Manifest.toml`
-			  [f053856a] + XxxxYyyy v0.1.0 [`..`]
-
-	h. (prjenv) pkg> add Documenter
-	i. (prjenv) pkg> add DocumenterTools
-	l. (prjenv) pkg> status --manifest
-			    Status `/work3/marcello/repos/git/XxxxYyyy/prjenv/Manifest.toml`
+	f. (1.3) pkg> activate XxxxYyyy
+			Activating new environment at `/work3/marcello/repos/git/XxxxYyyy/Project.toml`
+	g. (XxxxYyyy) pkg> add Documenter
+	h. (XxxxYyyy) pkg> add DocumenterTools
+	i. (XxxxYyyy) pkg> status --manifest
+			    Status `/work3/marcello/repos/git/XxxxYyyy/Manifest.toml`
 			  [b99e7846] BinaryProvider v0.5.8
 			  [ffbed154] DocStringExtensions v0.8.1
 			  [e30172f5] Documenter v0.24.2
@@ -97,14 +94,12 @@ A. $$$$$$$$$$$$$$$$$$$$$$$$$$$$  C R E A T E   T H E   B A S I C  S T R U C T U 
 			  [cf7118a7] UUIDs 
 			  [4ec0a83e] Unicode 
 
-	m. (prjenv) pkg> BackSpace
-	n. julia> Ctrl+d
-	o. $ tree XxxxYyyy
+	l. (XxxxYyyy)  pkg> BackSpace
+	m. julia> Ctrl+d
+	n. $ tree XxxxYyyy
 				XxxxYyyy
 				├── LICENSE
-				├── prjenv
-				│   ├── Manifest.toml
-				│   └── Project.toml
+				├── Manifest.toml
 				├── Project.toml
 				├── README.md
 				└── src
@@ -132,11 +127,9 @@ B. $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$    C R E A T E   M O R E    S T R U C T U R E
 
 	d. $ julia
 	e. julia> ]
-	f. (1.3) pkg> activate XxxxYyyy/prjenv
-			Activating new environment at `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
-	g. (prjenv) pkg> develop XxxxYyyy
-	h. (prjenv) pkg> status
-			   Status `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
+	f. (1.3) pkg> activate XxxxYyyy
+	h. (XxxxYyyy) pkg> status
+			   Status `/work3/marcello/repos/git/XxxxYyyy/Project.toml`
 			  [e30172f5] Documenter v0.24.2
 			  [35a29f4d] DocumenterTools v0.1.3
 			  [f053856a] XxxxYyyy v0.1.0 [`..`]
@@ -144,7 +137,7 @@ B. $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$    C R E A T E   M O R E    S T R U C T U R E
 
 2.	// Use PkgTemplates@0.6.3 to create project structure under ~/devwork/tmp
 
-	a. (prjenv) pkg> add PkgTemplates@0.6.3
+	a. (XxxxYyyy) pkg> add PkgTemplates@0.6.3
 	b. BackSpace
 	c. julia> using PkgTemplates
 	d. julia> t = Template(;
@@ -225,28 +218,12 @@ C. $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   C R E A T E   THE  F U L L   S T R U C T U R
 	a. $ cd $JULIA_PKG_DEVDIR
 	b. $ julia
 	c. julia> ]
-	d. (v1.3) pkg> activate XxxxYyyy/prjenv
-			Activating environment at `/work3/marcello/repos/git/XxxxYyyy/prjenv/Project.toml`
+	d. (v1.3) pkg> activate XxxxYyyy
+			Activating environment at `/work3/marcello/repos/git/XxxxYyyy/Project.toml`
 
-	e. (prjenv) pkg> test XxxxYyyy
+	e. (XxxxYyyy) pkg> test 
 			   Testing XxxxYyyy
-			 Resolving package versions...
-			  Updating `/tmp/jl_YWNxs9/Project.toml`
-			  [f053856a] + XxxxYyyy v0.1.0 [`/work3/marcello/repos/git/XxxxYyyy/`]
-			  Updating `/tmp/jl_YWNxs9/Manifest.toml`
-			 [no changes]
-			[ Info: Running Sandbox
-			    Status `/tmp/jl_YWNxs9/Project.toml`
-			  [e30172f5] Documenter v0.24.2
-			  [f053856a] XxxxYyyy v0.1.0 [`/work3/marcello/repos/git/XxxxYyyy/`]
-			  [8dfed614] Test 
-			[ Info: SetupBuildDirectory: setting up build directory.
-			[ Info: Doctest: running doctests.
-			[ Info: Skipped ExpandTemplates step (doctest only).
-			[ Info: Skipped CrossReferences step (doctest only).
-			[ Info: Skipped CheckDocument step (doctest only).
-			[ Info: Skipped Populate step (doctest only).
-			[ Info: Skipped RenderDocument step (doctest only).
+			   ....
 			Test Summary: | Pass  Total
 			XxxxYyyy.jl   |    3      3
 			   Testing XxxxYyyy tests passed
@@ -256,8 +233,14 @@ C. $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   C R E A T E   THE  F U L L   S T R U C T U R
 
 3.      // Test building the documentation 	
 
-	a. $ cd $JULIA_PKG_DEVDIR/XxxxYyyy/docs
-	b. $ julia --color=yes make.jl
+	a. $ cd $JULIA_PKG_DEVDIR
+	b. $ julia  --color=yes
+	c. julia> ]
+	d. (v1.3) pkg> activate XxxxYyyy/docs
+			Activating environment at `/work3/marcello/repos/git/XxxxYyyy/docs/Project.toml`
+			...
+	e. BackSpace		[exit Pkg]
+	f. julia> include("XxxxYyyy/docs/make.jl")
 			[ Info: SetupBuildDirectory: setting up build directory.
 			[ Info: Doctest: running doctests.
 			[ Info: ExpandTemplates: expanding markdown templates.
@@ -268,7 +251,9 @@ C. $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   C R E A T E   THE  F U L L   S T R U C T U R
 			[ Info: HTMLWriter: rendering HTML pages.
 			┌ Warning: Documenter could not auto-detect the building environment Skipping deployment.
 			└ @ Documenter ~/.julia/packages/Documenter/DQ9ei/src/deployconfig.jl:41
-	c. Open the browser at XxxxYyyy/docs/build/index.html
+
+	g. Ctrl+d    		[exit Julia REPL]
+	h. Open the browser at XxxxYyyy/docs/build/index.html
 
 	// COMMIT and PUSH all the above changes to remote
 
@@ -454,6 +439,10 @@ E. $$$$$$$$$$$$$$$$$$   E N A B L E   G I T H U B   S E L F - H O S T E D   R U 
 
 
 4. Tag the repository level at @0.0.5  "project structure building...5" using the GitHub releases UI
+
+
+
+
 
 
 
