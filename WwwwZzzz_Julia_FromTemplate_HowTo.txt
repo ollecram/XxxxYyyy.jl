@@ -15,15 +15,25 @@
 
 	a. set JULIA_PKG_DEVDIR		in .bashrc (~/devwork/repos/git)
 
-1. Clone the new repo and generate the Project.toml inside it  
+1.  Clone the new repo (created using XxxxYyyy.jl as a TEMPLATE)
+          and rename the repo's top folder (throw the '.jl' away)
+		  The top folder's name MUST so be equal to <package-name> 
 
-	// CLONE and rename the repo's top folder (throw the '.jl' away)
+2.  Open the shell in /tmp to generate a proper Project.toml for the cloned repo
+	$ cd /tmp
+	$ julia
+	julia> ]
+	(1.3) pkg> generate <package-name>
 
-	a. $ cd $JULIA_PKG_DEVDIR
-	b. $ git clone git@github.com:ollecram/WwwwZzzz.jl.git
-	c. $ mv WwwwZzzz.jl WwwwZzzz
+3. 	Customize the cloned project by running the customize.sh script
+	a. cd $JULIA_PKG_DEVDIR
+	b. cd <package-name>
+	c. ./customize.sh <package-name>
 
-2. Replace the template's XxxxYyyy into WwwwZzzz within all files (but those inside .git !!)
+2. In the local copy of this file MANUALLY change WwwwZzzz to YOUR_ACTUAL_PACKAGE_NAME !!!
+	a. sed WwwwZzzz_Julia_FromTemplate_HowTo
+
+3. Replace the template's XxxxYyyy into WwwwZzzz within all files (but those inside .git !!)
 	a. make a backup of this very file before executing the following command
 	b. $ cd $JULIA_PKG_DEVDIR/WwwwZzzz   !!!!!!!   D O   I T   !!!!!!!
 	c. $ find ./ -path ./.git -prune -o -type f -exec sed -i -e 's/XxxxYyyy/WwwwZzzz/g' {} \;
@@ -31,7 +41,7 @@
 	e. restore this very file from backup (or manually restore the XxxxYyyy's)
  
 
-3. Generate a new uuid for this project
+4. Generate a new uuid for this project
 
 	$ cd /tmp
 	$ julia
@@ -41,7 +51,7 @@
 	Ctrl+D				[exit Julia REPL]
 
 
-4. Replace the template's uuid with the new one within all files (but those inside .git !!)
+5. Replace the template's uuid with the new one within all files (but those inside .git !!)
 
 	- $ cat /tmp/WwwwZzzz/Project.toml
 	- Copy the NEW UUID to the Clipboard and past it in the 'find/sed' command below
@@ -51,7 +61,7 @@
 	
 	find ./ -path ./.git -prune -o -type f  -exec sed -i -e 's/f053856a-ba08-4650-953a-b054d77fde02/<newUUID>/g' {} \;
 
-5. Test that everything works 
+6. Test that everything works 
 	a. $ cd $JULIA_PKG_DEVDIR	   !!!!!!!   D O   I T   !!!!!!!
 	b. $ julia
 	c. julia> ]
@@ -85,5 +95,5 @@
 									WwwwZzzz.jl   |    3      3
 									Testing WwwwZzzz tests passed 
 
-6. Follow steps documented at the end of XxxxYyyy.jl/XxxxYyyy_Julia_Template_Repo_HowTo.txt
+7. Follow steps documented at the end of XxxxYyyy.jl/XxxxYyyy_Julia_Template_Repo_HowTo.txt
 	        to enable GitHub actions and a self-hosted runner for the new repo. 

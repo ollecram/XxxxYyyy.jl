@@ -1,6 +1,6 @@
 ## THIS IS A MEMO on HOW this TEMPLATE WAS CREATED
-## See README.md to use this TEMPLATE TO CREATE A
-##     PROJECT for DEVELOPING a new JULIA PACKAGE 
+## See WwwwZzzz_Julia_FromTemplate_HowTo.txt for using this TEMPLATE 
+##     TO CREATE A PROJECT for DEVELOPING a new JULIA PACKAGE 
 
 >>>> VERSION 0.1.1 
 >>>> AMENDED VERSION 0.1.0 by eliminating the use of a redundant
