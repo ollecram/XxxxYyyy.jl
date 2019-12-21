@@ -112,7 +112,7 @@ In this section `WwwwZzzz` is a substitute for the name of a new Julia package y
 1. If you need to create a project in GitHub to hold code for a new package `WwwwZzzz` then you should create a new GitHub repository named `WwwwZzzz.jl` since &ndash; by Julia convention &ndash; the `.jl` suffix must be appendend to the package name to form the repository name. Using the GitHub web interface 
     - specify `WwwwZzzz.jl` as the name of the repo, and
     - specify that you want to use `XxxxYyyy.jl` as a template for the new repo.
-2. Generate Project.toml (unique UUID) for the new package under /tmp
+2. Generate a unique UUID for the new package in a temporary folder
     - `cd /tmp`
     - `julia`
     - `]`
@@ -134,4 +134,6 @@ In this section `WwwwZzzz` is a substitute for the name of a new Julia package y
     - `git add *`
     - `git commit -m "Template customization complete."`
     - `git push`
+8. Enabling GitHub workflow and self-hosted runner
+    - Follow instructions in `GitHub_Workflow-and-Runner.howto`
 
