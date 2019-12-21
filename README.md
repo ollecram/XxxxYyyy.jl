@@ -136,4 +136,3 @@ In this section `WwwwZzzz` is a substitute for the name of a new Julia package y
     - `git push`
 8. Enabling GitHub workflow and self-hosted runner
     - Follow instructions in `GitHub_Workflow-and-Runner.howto`
-

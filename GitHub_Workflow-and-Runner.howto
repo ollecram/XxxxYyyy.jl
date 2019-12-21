@@ -45,7 +45,6 @@ A. $$$$$$$$$$$$$$$$$   E N A B L E   G I T H U B   A C T I O N S   W O R K F L O
 	b. Open GitHub MyPackage.jl project Settings / Actions
 	c. Action permissions / Select 'Enable local and Third Party actions for this repository'
 
------------------------------------------------------------------------------------------------------------------
 
    $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 B. $$$$$$$$$$$$$$$$$$   E N A B L E   G I T H U B   S E L F - H O S T E D   R U N N E R   $$$$$$$$$$$$$$$$$$$$$$$
@@ -76,7 +75,7 @@ B. $$$$$$$$$$$$$$$$$$   E N A B L E   G I T H U B   S E L F - H O S T E D   R U 
 	a. Self-hosted runners / Push 'Add runner' and copy the CURL command to download the latest runner version, namely
 		$ curl -O https://githubassets.azureedge.net/runners/2.162.0/actions-runner-linux-x64-2.162.0.tar.gz
 		$ tar xzf ./actions-runner-linux-x64-2.162.0.tar.gz 
-		$ ./config.sh --url https://github.com/ollecram/MyPackage.jl --token <COPY COMMAND with unique TOKEN>
+		$ ./config.sh --url https://..... omissis ...../MyPackage.jl --token <COPY COMMAND with unique TOKEN>
 				--------------------------------------------------------------------------------
 				|        ____ _ _   _   _       _          _        _   _                      |
 				|       / ___(_) |_| | | |_   _| |__      / \   ___| |_(_) ___  _ __  ___      |
@@ -133,22 +132,7 @@ B. $$$$$$$$$$$$$$$$$$   E N A B L E   G I T H U B   S E L F - H O S T E D   R U 
 				   status: Display status of runner service.
 				   uninstall: Uninstall runner service.	
 	
-		
 
-3. Save this file in the repository root, then commit and push all changes
-
-	a. Save this file in the repository root
-
-	// COMMIT and PUSH all the above changes to remote
-
-	b. $ cd $JULIA_PKG_DEVDIR/MyPackage
-	c. $ git add *
-	d. $ git commit -m "project structure building...5"
-	e. $ git push
-
-
-
-4. Tag the repository level at @0.0.5  "project structure building...5" using the GitHub releases UI
 
 
 
