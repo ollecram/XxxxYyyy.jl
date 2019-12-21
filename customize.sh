@@ -62,22 +62,20 @@ if [ $currentDir != $packageName ]; then
     exit 2
 fi
 
-# A. Replace WwwwZzzz with <package-name>  within WwwwZzzz_Julia_FromTemplate_HowTo.txt
-eval "sed -e 's/WwwwZzzzYyyy/$packageName/g' WwwwZzzz_Julia_FromTemplate_HowTo.txt > /tmp/tempfile && mv /tmp/tempfile WwwwZzzz_Julia_FromTemplate_HowTo.txt"
+# A. Eliminate all but the first 4 lines from README.md
+sed -e '5,$d' < README.md > /tmp/README.md && mv /tmp/README.md README.md
 
-# B. Rename WwwwZzzz_Julia_FromTemplate_HowTo.txt to match the project name
-mv WwwwZzzz_Julia_FromTemplate_HowTo.txt "$packageName"_Julia_FromTemplate_HowTo.txt
-
-# C. Retrieve UUID from Project.toml of the template's original
+# B. Retrieve UUID from Project.toml of the template's original
 uuidLine=$(sed '2!d' Project.toml | sed 's/ *//g')
 eval "$uuidLine"
 templateUuid=$uuid
 
-# D. Replace the template package definition with the generated one
+# C. Replace the template package definition with the generated one
 sed -e '1,4d' < Project.toml > /tmp/tail
 cat /tmp/$packageName/Project.toml | cat - /tmp/tail > /tmp/Project.toml && mv /tmp/Project.toml Project.toml
 
-# Clean-up /tmp
+# D. Clean-up /tmp
+# rm /tmp/README.md
 # rm /tmp/tail
 # rm -rf /tmp/$packageName
 
