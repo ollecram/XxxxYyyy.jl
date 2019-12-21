@@ -76,34 +76,35 @@ Click this [link](#using-this-template-as-a-starter-for-a-new-package) for jumpi
 - `$ cd JULIA_PKG_DEVDIR`
 - `$ julia`
 - `julia> ]`
-- `(1.3) pkg> activate MyPackage`
-- `(MyPackage) pkg> develop MyPackage`
+- `(1.3) pkg> develop MyPackage`
 - `(MyPackage) pkg> status`
 
 ### Running tests
-In order to have coverage measured as part of the test the julia REPL should be started with the following options        
+
+In order to have coverage measured as part of the test the julia REPL should be started with the following options
 
 `--code-coverage=tracefile-%p.info --code-coverage=user`
 
-#### Typical test session 
-- `cd $JULIA_PKG_DEVDIR`
-- `julia --code-coverage=tracefile-%p.info --code-coverage=user`
-- `]`
-- `(1.3) pkg> activate MyPackage`
-- `(MyPackage) pkg> test --coverage`
+- `$ cd JULIA_PKG_DEVDIR`
+- `$ julia --code-coverage=tracefile-%p.info --code-coverage=user`
+- `julia> ]`
+- `(1.3) pkg> develop MyPackage`
+- `(1.3) pkg> test --coverage MyPackage`
 
-#### Manually building the documentation 
-- `(MyPackage) pkg> activate MyPackage/docs`
+
+### Manually building the documentation 
+- `(1.3) pkg> activate MyPackage/docs`
+- `(docs) pkg> add MyPackage`
 - `julia> include("MyPackage/docs/make.jl")`
 
-The generated docs will then be found at MyPackage/docs/build.
+The generated docs will then be found at `MyPackage/docs/build`.
 
-### Automated build and publishing of the documentation
+### Automated build and deployment of documentation
 
-Configure GitHub actions on your package repository to have documentation automatically
+Follow instructions in the companion `GitHub_Workflow-and-Runner.howto` to have documentation automatically
 built and published to GitHub Pages.
 
-The file `.github/workflows/build-and-deploy-docs.yml` defines a job triggered by any `push` to the GitHub repository master.
+The file `.github/workflows/build-and-deploy-docs.yml` defines a job triggered by git `push` commands to the origin master.
 
 # Using this template as a starter for a new package
 
@@ -127,9 +128,9 @@ In this section `WwwwZzzz` is a substitute for the name of a new Julia package y
 4. Run the script `customize.sh` specifying the name of the package
     - `./config.sh WwwwZzzz`
 5. Run tests
-    - See [typical-session](#typical-test-session)
+    - See [running-tests](#running-tests)
 6. Build docs
-    - See [building-docs](#manually-building-the-documentation)
+    - See [building-docs](#automated-build-and-deployment-of-documentation)
 7. Commit changes
     - `git add *`
     - `git commit -m "Template customization complete."`
