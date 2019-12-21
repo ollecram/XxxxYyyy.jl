@@ -88,7 +88,7 @@ eval "$uuidLine"
 packageUuid=$uuid
 
 # F. Replace the template's uuid with the actual one within all files (but those inside .git !!)
-eval "find ./ -path ./.git -prune -o -type f -exec sed -i -e 's/$templateUuid/$packageUuid>/g' {} \;"
+eval "find ./ -path ./.git -prune -o -type f -exec sed -i -e 's/$templateUuid/$packageUuid/g' {} \;"
 
 # G. Replace XxxxYyyy with <package-name>  within all files (but those inside .git !!)
 eval "find ./ -path ./.git -prune -o -type f -exec sed -i -e 's/XxxxYyyy/$packageName/g' {} \;"
