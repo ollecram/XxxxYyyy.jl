@@ -74,7 +74,10 @@ templateUuid=$uuid
 sed -e '1,4d' < Project.toml > /tmp/tail
 cat /tmp/$packageName/Project.toml | cat - /tmp/tail > /tmp/Project.toml && mv /tmp/Project.toml Project.toml
 
-# D. Clean-up /tmp
+# D. Rename XxxxYyyy.jl 
+mv ./src/XxxxYyyy.jl ./src/"$packageName".jl
+
+# Clean-up /tmp files
 # rm /tmp/README.md
 # rm /tmp/tail
 # rm -rf /tmp/$packageName
