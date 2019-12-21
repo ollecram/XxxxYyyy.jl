@@ -46,19 +46,34 @@ documenterUuid="e30172f5-a6a5-5a46-863b-614d45cd2de4"
 # Test Uuid
 testUuid="8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
-# A. Check current directory against 1st argument (package name)
+# Check that package name has been supplied as the 1st argument
+if [ $# -eq 0 ]
+  then
+    echo "You need to supply the name of the package as the 1st argument"
+    echo "On exit: no actions performed."
+    exit 1
+fi
+
+# Check current directory against 1st argument (package name)
 currentDir=${PWD##*/}
 if [ $currentDir != $packageName ]; then
   echo "Error: package name and script directory do not match!"
-  exit 1
+  echo "On exit: no actions performed."
+    exit 2
 fi
 
-# B. Retrieve UUID from Project.toml of the template's original
+# A. Replace WwwwZzzz with <package-name>  within WwwwZzzz_Julia_FromTemplate_HowTo.txt
+eval "sed -e 's/WwwwZzzzYyyy/$packageName/g' WwwwZzzz_Julia_FromTemplate_HowTo.txt > /tmp/tempfile && mv /tmp/tempfile WwwwZzzz_Julia_FromTemplate_HowTo.txt"
+
+# B. Rename WwwwZzzz_Julia_FromTemplate_HowTo.txt to match the project name
+mv WwwwZzzz_Julia_FromTemplate_HowTo.txt "$packageName"_Julia_FromTemplate_HowTo.txt
+
+# C. Retrieve UUID from Project.toml of the template's original
 uuidLine=$(sed '2!d' Project.toml | sed 's/ *//g')
 eval "$uuidLine"
 templateUuid=$uuid
 
-# C. Replace the template package definition with the generated one
+# D. Replace the template package definition with the generated one
 sed -e '1,4d' < Project.toml > /tmp/tail
 cat /tmp/$packageName/Project.toml | cat - /tmp/tail > /tmp/Project.toml && mv /tmp/Project.toml Project.toml
 
@@ -66,16 +81,16 @@ cat /tmp/$packageName/Project.toml | cat - /tmp/tail > /tmp/Project.toml && mv /
 # rm /tmp/tail
 # rm -rf /tmp/$packageName
 
-# D. Retrieve package's uuid from the updated Project.toml
+# E. Retrieve package's uuid from the updated Project.toml
 uuidLine=$(sed '2!d' Project.toml | sed 's/ *//g')
 eval "$uuidLine"
 packageUuid=$uuid
 
-# E. Replace the template's uuid with the actual one within all files (but those inside .git !!)
+# F. Replace the template's uuid with the actual one within all files (but those inside .git !!)
 eval "find ./ -path ./.git -prune -o -type f -exec sed -i -e 's/$templateUuid/$packageUuid>/g' {} \;"
 
-# F. ToDo replace XxxxYyyy with <package-name>
-
+# G. Replace XxxxYyyy with <package-name>  within all files (but those inside .git !!)
+eval "find ./ -path ./.git -prune -o -type f -exec sed -i -e 's/XxxxYyyy/$packageName/g' {} \;"
 
 # Echo 
 echo user name: $userName
